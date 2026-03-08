@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Umbrel-like Portal</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="bg-layer"></div>
+  <div class="page-shell">
+    <header class="hero glass">
+      <div>
+        <div class="badge">Self-hosted control plane</div>
+        <h1>Портал сервисов</h1>
+        <p>Группы серверов, поиск, drag & drop, credentials, links и Docker autodiscovery.</p>
+      </div>
+      <div class="hero-actions">
+        <div id="me-box" class="muted"></div>
+        <button id="logout-btn" class="ghost-btn">Logout</button>
+      </div>
+    </header>
+
+    <section class="toolbar glass">
+      <div class="toolbar-main">
+        <input id="search-input" class="search-input" placeholder="Поиск по сервисам, URL, категориям, серверам, IP" />
+      </div>
+      <div class="toolbar-actions">
+        <button id="check-all-btn" class="ghost-btn">Проверить все</button>
+        <button id="discovery-btn" class="ghost-btn">Autodiscovery</button>
+        <button id="export-btn" class="ghost-btn">Экспорт</button>
+        <button id="import-btn" class="ghost-btn">Импорт</button>
+        <button id="add-service-btn" class="ghost-btn">Добавить сервис</button>
+        <button id="add-server-btn" class="primary-btn">Добавить сервер</button>
+        <input id="import-file" type="file" accept="application/json" hidden />
+      </div>
+    </section>
+
+    <section id="summary-cards" class="summary-grid"></section>
+
+    <main id="servers-root" class="servers-root"></main>
+  </div>
+
+  <dialog id="server-modal" class="modal">
+    <form method="dialog" id="server-form" class="modal-card glass form-stack wide">
+      <div class="modal-head">
+        <h2 id="server-modal-title">Сервер</h2>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <input name="id" hidden />
+      <label><span>Название</span><input name="name" required /></label>
+      <div class="two-col">
+        <label><span>IP</span><input name="ip" /></label>
+        <label><span>Base URL</span><input name="baseUrl" placeholder="https://welcome.example.com" /></label>
+      </div>
+      <label><span>Описание</span><input name="description" /></label>
+      <label><span>Теги через запятую</span><input name="tags" placeholder="prod, eu, gpu" /></label>
+      <label class="checkbox-row"><input name="expanded" type="checkbox" checked /> <span>Раскрывать по умолчанию</span></label>
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" data-close>Отмена</button>
+        <button type="submit" class="primary-btn">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="service-modal" class="modal">
+    <form method="dialog" id="service-form" class="modal-card glass form-stack wide">
+      <div class="modal-head">
+        <h2 id="service-modal-title">Сервис</h2>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <input name="id" hidden />
+      <div class="two-col">
+        <label><span>Сервер</span><select name="serverId" required></select></label>
+        <label><span>Название</span><input name="name" required /></label>
+      </div>
+      <div class="two-col">
+        <label><span>URL</span><input name="url" required /></label>
+        <label><span>Категория</span><input name="category" /></label>
+      </div>
+      <label><span>Описание</span><input name="description" /></label>
+      <div class="two-col">
+        <label><span>Иконка</span><input name="iconUrl" /></label>
+        <label><span>Health URL</span><input name="healthUrl" /></label>
+      </div>
+      <div class="two-col">
+        <label><span>Check Method</span>
+          <select name="checkMethod">
+            <option value="auto">auto</option>
+            <option value="http">http</option>
+            <option value="ping">ping</option>
+            <option value="disabled">disabled</option>
+          </select>
+        </label>
+        <label class="checkbox-row"><input name="pinned" type="checkbox" /> <span>Pinned</span></label>
+      </div>
+      <label><span>Notes</span><textarea name="notes" rows="3"></textarea></label>
+      <label><span>Credentials JSON</span><textarea name="credentials" rows="5" placeholder='[{"label":"Username","value":"postgres","secret":false}]'></textarea></label>
+      <label><span>Links JSON</span><textarea name="links" rows="4" placeholder='[{"label":"Docs","url":"https://..."}]'></textarea></label>
+      <div class="modal-actions">
+        <button type="button" class="ghost-btn" data-close>Отмена</button>
+        <button type="submit" class="primary-btn">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="discovery-modal" class="modal">
+    <div class="modal-card glass wide">
+      <div class="modal-head">
+        <h2>Docker autodiscovery</h2>
+        <button type="button" class="icon-btn" data-close>✕</button>
+      </div>
+      <div class="discovery-toolbar">
+        <label><span>Импортировать в сервер</span><select id="discovery-server-select"></select></label>
+        <button id="discovery-refresh-btn" class="ghost-btn">Обновить</button>
+        <button id="discovery-import-btn" class="primary-btn">Импортировать выбранное</button>
+      </div>
+      <div id="discovery-status" class="muted"></div>
+      <div id="discovery-list" class="discovery-list"></div>
+    </div>
+  </dialog>
+
+  <script src="/app.js"></script>
+</body>
+</html>

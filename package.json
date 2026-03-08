@@ -1,0 +1,17 @@
+{
+  "name": "imanevi4-umbrel-like-ui",
+  "version": "2.0.0",
+  "description": "Self-hosted service portal with auth, groups, drag & drop, search, credentials, links and Docker autodiscovery.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "hash-password": "node scripts/hash-password.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "helmet": "^8.1.0",
+    "session-file-store": "^1.5.0"
+  }
+}

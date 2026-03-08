@@ -1,0 +1,19 @@
+{
+  "servers": [
+    {
+      "id": "srv-default",
+      "name": "Default Server",
+      "ip": "",
+      "baseUrl": "",
+      "description": "Default group",
+      "expanded": true,
+      "order": 1,
+      "tags": []
+    }
+  ],
+  "services": [],
+  "meta": {
+    "version": 2,
+    "updatedAt": "2026-03-08T00:00:00.000Z"
+  }
+}

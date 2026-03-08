@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Login</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body class="login-body">
+  <div class="login-shell">
+    <div class="login-card glass">
+      <div class="badge">Secure Portal</div>
+      <h1>Вход в портал</h1>
+      <p>Авторизация обязательна. Без сессии UI и API недоступны.</p>
+      <form id="login-form" class="form-stack">
+        <label>
+          <span>Username</span>
+          <input name="username" autocomplete="username" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input name="password" type="password" autocomplete="current-password" required />
+        </label>
+        <button type="submit" class="primary-btn">Войти</button>
+      </form>
+      <div id="login-error" class="error-text"></div>
+    </div>
+  </div>
+  <script src="/login.js"></script>
+</body>
+</html>
